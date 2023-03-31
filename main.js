@@ -5,6 +5,33 @@ const FULL_HEART = '♥'
 // Your JavaScript code goes here!
 
 
+const myHeartClick = document.querySelectorAll(".like-glyph")
+  
+function heartCallback(e){
+  const heartEmoji = e.target
+
+  mimicServerCall("url")
+  .then(function(){
+    if(heartEmoji.innerText === EMPTY_HEART){
+      heartEmoji.innerText = FULL_HEART
+      heartEmoji.className = "activated-heart"
+    } else{
+      heartEmoji.innerText = EMPTY_HEART
+      heartEmoji.className = ""
+    }
+  })
+  .catch(function(error) {
+    const modal = document.getElementById("modal")
+    modal.className = ""
+    modal.innerText = error
+    setTimeout(() =>  modal.className = "hidden", 3000)
+  })
+}
+
+for(const emoji of myHeartClick){
+  emoji.addEventListener("click", heartCallback)
+}
+
 
 
 //------------------------------------------------------------------------------
